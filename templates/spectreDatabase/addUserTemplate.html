@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+<!--
+How this page works:
+You send your information to the server. Name is not optional, and designation must be a number, which is used for cardswipe login. It is kept secret, by the way. If you fail, the server will send back this page with an error message. If not, the server will send back the login page.
+-->
+<html>
+	<head>
+	
+		<!--That little icon next to the url has to exist -->
+		<link rel="shortcut icon" href="/spectre/media/favicon.ico" >
+		<link rel="icon" type="image/gif" href="/spectre/media/animated_favicon1.gif" >
+		
+		<!-- a title for the page -->
+		<title>SPECTRE: Join Us</title>
+		
+		<!-- a stylesheet -->
+		<link rel="stylesheet" href="/spectre/media/addUser.css" />
+		
+	</head>
+	<body>
+		
+		<!--Most of the page is in this central, 500px wide div 150px from the top -->
+		<div class="spectrelogindiv">
+			
+			<!-- the logo is actually the background of a div, so you can't drag it away like an image, and it's also a link to the main page -->
+			<a href="/spectre/">
+				<div class="spectrelogodiv">
+				</div>
+			</a>
+			
+			<!--Say it loud, say it proud!-->
+			<div class="spectretitle">
+				We Are S.P.E.C.T.R.E.
+			</div>
+			
+			<!-- the subtitle, specific to this page -->
+			<div class="spectresubtitle">
+				Join Us:
+			</div>
+			
+			<!-- the sub sub title, or main text of the page -->
+			<div class="spectresubsubtitle">
+				
+				<!--where the server sends error messages when you fail -->
+				<div>
+					{{error}}
+				</div>
+				
+				<!-- the actual form for adding users. It is formatted with a simple table -->
+				<form action="/spectre/user/add/" method="POST">
+					<table class="adduserform">
+						<tr>
+							<td>
+								Name:
+							</td>
+							<td>
+								<input name="name" value="{{name}}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Email:
+							</td>
+							<td>
+								<input name="email" value="{{email}}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Designation: 
+								<br /> 
+								(UID, Optional)
+							</td>
+							<td>
+								<input name="cardnum" value="{{cardnum}}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<!-- the cancel button: actually just a link to the login page -->
+								<input type="button" class="btn" name="linkonly" value="Cancel" onClick="parent.location='/spectre/login/'"/>
+							</td>
+							<td>
+								<input type="Submit" value="Submit" class="btn"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

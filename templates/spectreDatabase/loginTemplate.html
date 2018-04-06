@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+<!--
+How this page works:
+You enter a name or number, and the form sends it to the server. If the name or number matches one user specifically, the server sends back the user page with that user's name and spectre_id. If not, that user sends back this page with a list of possible, clickable, identities. Those are determined by name and email matching only, so you can't use this system to fish for people's id numbers.
+-->
+<html>
+	<head>
+	
+		<!-- for that little icon that appears next to the url -->
+		<link rel="shortcut icon" href="/spectre/media/favicon.ico" >
+		<link rel="icon" type="image/gif" href="/spectre/media/animated_favicon1.gif" >
+		
+		<!-- titles are a good idea -->
+		<title>SPECTRE: State your name or designation.</title>
+		
+		<!-- a style sheet -->
+		<link rel="stylesheet" href="/spectre/media/login.css" />
+		
+	</head>
+	<body>
+		
+		<!-- most of this page is in a centered 500px wide div 150px from the top -->
+		<div class="spectrelogindiv">
+			
+			<!-- the logo is the background of a div, and also a link back to the main page -->
+			<a href="/spectre/">
+				<div class="spectrelogodiv">
+				</div>
+			</a>
+			
+			<!-- Say it loud, say it proud! -->
+			<div class="spectretitle">
+				We Are S.P.E.C.T.R.E.
+			</div>
+			
+			<!-- The subtitle -->
+			<div class="spectresubtitle">
+				State your name or designation:
+			</div>
+			
+			<!-- the actual form to enter your information -->
+			<div class="spectresubsubtitle">
+				<form action="/spectre/login/" method="POST" name="loginForm">
+					<!-- the joinus button: actually just a link to the join us page -->
+					<input name="linkonly" class="btn" type="button" value="Join Us" onClick="parent.location='/spectre/user/add/'" />
+					<input name="filter" />
+					<input type="Submit" value="Enter" class="btn"/>
+				</form>
+				<script type="text/javascript">
+					document.forms.loginForm.filter.focus()
+				</script>
+			</div>
+			
+			<!-- where the server sends back possible identities, if you match more than one. To minimize the text the server sends if you match a lot of identities, we're using javascript -->
+			<div class="spectresubsubtitle" id="possibleusers">
+				<script type="text/javascript">
+					var usernames = [{{ usernames|safe }}];
+					var userids= [{{ userids|safe }}];
+					var i = 0;
+					if (usernames.length > 0)
+					{
+						document.write("Possible Identities:\n<br />");
+					}
+					for (i=0;i<usernames.length;i++)
+					{
+						document.write("<form action=\"/spectre/login/\" method=\"POST\">\n<input type=\"hidden\" name=\"spectreUserId\" value=\""+userids[i]+"\" />\n<input type=\"Submit\" class=\"btn\" value=\""+usernames[i]+"\" />\n</form>\n<br />\n\n");
+					}
+				</script>
+			</div>
+		</div>
+	</body>
+</html>

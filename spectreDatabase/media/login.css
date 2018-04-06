@@ -1,0 +1,81 @@
+/*body should have a fixed vertical black to red gradient */
+body {
+	background-image: url(/spectre/media/spectreGradient.jpg);/*thanks http://rlv.zcache.com/sp_e_c_t_u_r_e_white_octipus_button-p145089362579505254t5sj_400.jpg ! */
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+}
+
+/*a centerd div, 150px from the top, to contain the login stuff*/
+.spectrelogindiv {
+	margin-top: 150px;
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+/*The logo is actually the backdrop of a div, so you can't drag it away like an image*/
+.spectrelogodiv {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 247px;
+    height: 247px;
+    background-image: url(/spectre/media/spectreLogo.png);
+    background-repeat:no-repeat;
+    background-position:top center;
+}
+
+/*The title formatting*/
+.spectretitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 48px;
+}
+
+/*The subtitle formatting*/
+.spectresubtitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 30px;
+}
+
+/*subsub title, which is actually jsut the main form thingy on this page*/
+.spectresubsubtitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 14px;
+}
+
+/*buttons should look cool*/
+.btn { 
+	color: #b5b5b5; 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5;
+}
+
+/*button text should turn red when you hover over it.*/
+.btn:hover { 
+	color: rgb(150, 0, 0); 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5;
+}

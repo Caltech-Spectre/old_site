@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+<!--
+
+-->
+<html>
+	<head>
+	
+		<!--That little icon next to the url has to exist -->
+		<link rel="shortcut icon" href="/spectre/media/favicon.ico" >
+		<link rel="icon" type="image/gif" href="/spectre/media/animated_favicon1.gif" >
+		
+		<!-- a title for the page -->
+		<title>SPECTRE: Donate a Book</title>
+		
+		<!-- a stylesheet -->
+		<link rel="stylesheet" href="/spectre/media/addUser.css" />
+		
+		
+		
+		
+<script type="text/javascript">
+/**
+ajaxRequest
+
+returns the type of request object useful for this browser.
+This is likely to be ActiveXObject['Microsoft.XMLHTTP'] in old IE, or XMLHTTPRequest otherwise.
+Thanks http://www.javascriptkit.com/jsref/ajax.shtml!
+**/
+function ajaxRequest()
+{
+	var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"] //activeX versions to check for in IE
+	if (window.ActiveXObject) //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken)
+	{ 
+		for (var i=0; i<activexmodes.length; i++)
+		{
+			try
+			{
+				return new ActiveXObject(activexmodes[i])
+			}
+			catch(e)
+			{
+				//suppress error
+			}
+		}
+	}
+	else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+	{
+		return new XMLHttpRequest()
+	}
+	else
+	{
+		return false
+	}
+}
+
+
+
+
+
+
+/**
+loadXML
+
+This function is for retrieving javascript xml objects from the server. 
+It can work syncronously or asyncronously, and send GET, POST, or no parameters. 
+
+url - the url you want to get your xml from
+
+parameters - the parameter string (make sure to sanatize it! encodeURIComponent() may be useful for that!)
+
+processor - if you want to be asyncronous, put in a function here that will take an xml object as input.
+This will be called when the server responds. processor = null by default.
+
+post - True if you want to send parameters by POST, false for GET. true by default.
+
+return - this will return the xml object if processor is not set or is null, and will otherwise return null. 
+If it returns null, this is because it is asyncronous, and processor(xml) will be called on server response.
+**/
+function loadXML(url,parameters,processor,post)
+{
+	return loadXMLorText(true,url,parameters,processor,post)
+}
+
+
+
+
+
+
+/**
+loadText
+
+This function is for retrieving text from the server. 
+It can work syncronously or asyncronously, and send GET, POST, or no parameters. 
+
+url - the url you want to get your text from
+
+parameters - the parameter string (make sure to sanatize it! encodeURIComponent() may be useful for that!)
+
+processor - if you want to be asyncronous, put in a function here that will take text as input.
+This will be called when the server responds. processor = null by default.
+
+post - True if you want to send parameters by POST, false for GET. true by default.
+
+return - this will return the xml object if processor is not set or is null, and will otherwise return null. 
+If it returns null, this is because it is asyncronous, and processor(text) will be called on server response.
+**/
+function loadText(url,parameters,processor,post)
+{
+	return loadXMLorText(false,url,parameters,processor,post)
+}
+
+
+
+
+
+
+
+/**
+loadText
+
+This function is for retrieving javascript xml objects or text from the server. 
+It can work syncronously or asyncronously, and send GET, POST, or no parameters. 
+
+xmlortext - true for xml, false for text
+
+url - the url you want to get your xml or text from
+
+parameters - the parameter string (make sure to sanatize it! encodeURIComponent() may be useful for that!)
+
+processor - if you want to be asyncronous, put in a function here that will take an xml object or text as input.
+This will be called when the server responds. processor = null by default.
+
+post - True if you want to send parameters by POST, false for GET. true by default.
+
+return - this will return the xml object or text if processor is not set or is null, and will otherwise return null. 
+If it returns null, this is because it is asyncronous, and processor(xml or text) will be called on server response.
+**/
+function loadXMLorText(xmlortext,url,parameters,processor,post)
+{
+	
+	
+	
+	//First, establish default inputs:
+	//set default url to this page itself (this isn't likely valid xml, but why not?)
+	if(url === undefined)
+	{
+		url = location.href
+	}
+	
+	//set default parameters to ''
+	if( parameters === undefined)
+	{
+		parameters = '';
+	}
+	
+	//decide whether this is async, and set the processor function (default is null)
+	var async;
+	if(processor === undefined || processor == null)
+	{
+		processor = null;
+		async = false;
+	} else {
+		async = true;
+	}
+	
+	//set default post to true
+	if(post === undefined)
+	{
+		post = true
+	}
+	
+	
+	//Second, establish useful function variables:
+	//establish the type of request
+	var requestType;
+	if(post)
+	{
+		requestType = "POST";
+	} else {
+		requestType = "GET";
+		url = url+"?"+parameters //if it is get, you need to put the parameters in the url.
+	}
+	
+	//create xmlDoc, which will be our request object
+	var xmlDoc;
+	
+	//this is to be the processor function that will actually be called on state change
+	var stateChangeProcessor
+	
+	//create the function that will be called when the server responds
+	function state_Change()
+	{
+	if (xmlDoc.readyState==4)
+	  {// 4 = "loaded"
+	  if (xmlDoc.status==200)
+	    {// 200 = OK
+			var xml=getXMLFromRequest(xmlDoc); //get the xml object
+	    	stateChangeProcessor(xml); //send the sml object to the processor function
+	    }
+	  else //there was a problem with the xml data
+	    {
+	    	/**
+	    	
+	    	----------   NOTE TO DEVELOPERS   --------
+	    	IT IS TREMENDOUSLY USEFUL TO UNCOMMENT 
+	    	THE LINE BELOW, AS IT ALLOWS YOU TO SEE
+	    	WHEN YOUR AJAX HAS FAILED, BUT NO FINAL
+	    	USER WANT TO GET THESE, EVEN IF IT HAS
+	    	FAILED, SO I HAVE COMMENTED IT OUT.
+	    	
+	    	**/
+	    	alert("Problem retrieving XML data");
+	    }
+	  }
+	}
+	
+	//you have to be able to get an xml object out of your request, which is hard in IE.
+	//this will get the text instead of the xml if xmlortext is false
+	function getXMLFromRequest(oRequest)
+	{
+		if(xmlortext)
+		{
+			if (isIE && oRequest.responseText != null) 
+			{
+				//in IE, you need to get the text from the response, and feed it to an xml object.
+				xmlText = oRequest.responseText;
+				xml = new ActiveXObject('Microsoft.XMLDOM');
+				xml.loadXML(xmlText);
+				return xml;
+			} else {
+				//otherwise, it's really simple.
+				return oRequest.responseXML;
+			}
+		} else {
+			return oRequest.responseText;
+		}
+	}
+	
+	//Third, perform the request
+	//create the request object of the appropriate type using ajaxRequest()
+	xmlDoc = new ajaxRequest();
+	
+	
+	//Ensure that the servers response is interpreted as xml (if possible)
+	//Unless this function works, you must be in IE (or something else ugly) responseXML doesn't work right.
+	var isIE = true; 
+	if (xmlDoc.overrideMimeType)
+	{
+		xmlDoc.overrideMimeType('text/xml');
+		isIE = false;
+	}
+	
+	
+	
+	//set the processor to be called on state change to the processor input
+	stateChangeProcessor = processor;
+	
+	
+	
+	//set the state change function to be called by xmlDoc when the server responds
+	xmlDoc.onreadystatechange=state_Change;
+	
+	//open the request with type, url, and whether or not it's async. 
+	xmlDoc.open(requestType,url,async);
+	
+	//before sending, you need to setRequestHeader if it's POST, and only post sends the parameters seperately.
+	if(post)
+	{
+		xmlDoc.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlDoc.send(parameters); //send POST request
+	} else {
+		xmlDoc.send(null);
+	}
+	
+	//Fourth, if it's async, you just return null, otherwise, the code will be stalled until server response, and you return with the xml object.
+	if(async)
+	{
+		return null;
+	} else {
+		return getXMLFromRequest(xmlDoc);
+	}
+}
+
+
+
+
+
+function clearAll()
+{
+	window.location="";
+}
+
+function saveBook()
+{
+	var currentTime = new Date();
+	var month = currentTime.getMonth() + 1
+	var day = currentTime.getDate()
+	var year = currentTime.getFullYear()
+	
+	if (month < 10)
+	{
+		month = "0"+month.toString()
+	}
+	
+	if (day < 10)
+	{
+		day = "0"+day.toString();
+	}
+
+	loadText("/admin/spectreDatabase/book/add/","title="+document.getElementById("title").value+"&author="+document.getElementById("author").value+"&isbn="+document.getElementById("isbn").value+"&bought="+year+"-"+month+"-"+day+"&checkouts=0&idcode="+document.getElementById("barcode").value+"&bloan=&_save=Save&csrfmiddlewaretoken="+document.getElementById("bar_code_and_isbn_form").elements["csrfmiddlewaretoken"].value);
+	clearAll();
+}
+</script>
+		
+		
+		
+		
+	</head>
+	<body>
+		
+		<!--Most of the page is in this central, 500px wide div 150px from the top -->
+		<div class="spectrelogindiv">
+			
+			<!-- the logo is actually the background of a div, so you can't drag it away like an image, and it's also a link to the main page -->
+			<a href="/spectre/">
+				<div class="spectrelogodiv">
+				</div>
+			</a>
+			
+			<!--Say it loud, say it proud!-->
+			<div class="spectretitle">
+				We Are S.P.E.C.T.R.E.
+			</div>
+			
+			<!-- the subtitle, specific to this page -->
+			<div class="spectresubtitle">
+				Add a Book:
+			</div>
+			
+			<!-- the sub sub title, or main text of the page -->
+			<div class="spectresubsubtitle">
+				
+				<!--where the server sends error messages when you fail -->
+				<div>
+					<script type="text/javascript">
+					if ( {{have_this_book}} )
+					{
+						document.write("THIS BARCODE IS IN THE DATABASE");
+					}
+					</script>
+				</div>
+				
+				<!--  -->
+				<form action="/spectre/book/add/" method="POST" id="bar_code_and_isbn_form">
+					{% csrf_token %} 
+					<table class="adduserform">
+						<tr>
+							<td>
+								Bar Code:
+							</td>
+							<td>
+								<input id="barcode" name="barcode" value="{{barcode}}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								ISBN:
+							</td>
+							<td>
+								<input id="isbn" name="isbn" value="{{isbn}}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<!-- the cancel button: actually just a link to the login page -->
+								<input type="button" class="btn" name="linkonly" value="Cancel" onClick="parent.location='/spectre/login/'"/>
+							</td>
+							<td>
+								<input type="Submit" value="Search" class="btn"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+				
+				
+				<table class="adduserform">
+					<tr>
+						<td>
+							Title: 
+						</td>
+						<td>
+							<input id="title" name="title" value="{{title}}"  onkeydown="if (event.keyCode == 13) document.getElementById('save').click()" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Author: &nbsp
+						</td>
+						<td>
+							<input name="author" id="author" value="{{author}}"  onkeydown="if (event.keyCode == 13) document.getElementById('save').click()" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<!-- the cancel button: actually just a link to the login page -->
+							<input type="button" class="btn" name="next" id="next" value="Skip" onClick="clearAll()"/>
+						</td>
+						<td>
+							<input type="button" class="btn" name="save" id="save" value="Save And Move On" onClick="saveBook()"/>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		document.getElementById("{{focus}}").focus()
+	</script>
+</html>

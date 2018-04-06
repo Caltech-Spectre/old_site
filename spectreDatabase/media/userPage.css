@@ -1,0 +1,199 @@
+/*A static background image of a vertical black to red gradient, fixed*/
+body {
+	background-image: url(/spectre/media/spectreGradient.jpg);/*thanks http://rlv.zcache.com/sp_e_c_t_u_r_e_white_octipus_button-p145089362579505254t5sj_400.jpg ! */
+	background-repeat: repeat-x;
+	background-position: 0px 300px;
+	background-attachment: fixed;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 12px;
+}
+
+/*buttons should look cool*/
+.btn { 
+	color: #b5b5b5; 
+	font: bold 84% Arial, Verdana, Times; 
+    font-size: 18px;
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5; 
+} 
+
+/*text in buttons should turn red when you hover it*/
+.btn:hover { 
+	color: rgb(150, 0, 0); 
+	font: bold 84% Arial, Verdana, Times; 
+    font-size: 18px;
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5; 
+}
+
+/*a fancy table is outlined below. It will have a header with bokd grey text and no backdrop, and alternate transperent and dark red tinted rows. Text in these will be grey, and turn bold white when hovered over*/
+table.fancy {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: hidden;
+}
+table.fancy th {
+	border-width: 0px;
+	padding: 2px;
+	border-style: hidden;
+	border-color: gray;
+	text-align: left;
+	-moz-border-radius: ;
+}
+table.fancy td {
+	border-width: 0px;
+	padding: 2px;
+	border-style: hidden;
+	border-color: gray;
+	-moz-border-radius: ;
+}
+table.fancy tr.header {
+	padding: 2px;
+}
+table.fancy tr.odd {
+	background-color: rgb(10, 0, 0);
+	padding: 2px;
+}
+table.fancy tr.even {
+	padding: 2px;
+}
+table.fancy tr.odd:hover {
+	background-color: rgb(10, 0, 0);
+	padding: 2px;
+	font-weight: bold;
+	color: white;
+}
+table.fancy tr.even:hover {
+	padding: 2px;
+	font-weight: bold; 
+	color: white;
+}
+
+/*This is meant for the arrows you can sort things by. Grey text turns red when hovered over*/
+.clickable {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #b5b5b5 ;
+}
+
+.clickable:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	color: red;
+}
+
+/*The main page is actually the table, with the banner hovering over it, so we need a spacer atop the table, so the top few results are visible */
+.spacer {
+	height: 300px;
+}
+
+/*The actual silver bordered black box that contains everything but search results. It is full width, 300px tall, and hovers over the rest of the page at the top*/
+.banner {
+	border-width: 5px;
+	border-spacing: 0px;
+	border-style: outset;
+	border-color: #b5b5b5 ;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-align: left;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%-5px;
+	height: 300px;
+	right: 0px;
+	background-color: black;
+}
+
+/*the backdrop inside the banner has the darkened spectrelogo in the center as a background. It si 260 high, to leave room for the table header underneath it inside the banner*/
+.bannerbox {
+	border-width: 0px;
+	border-spacing: 0px;
+	margin: 0;
+	top: 0px;
+	height: 260px;
+	width: 100%;
+	background-image: url(/spectre/media/spectreLogoDark.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/*The title in the banner box*/
+.bannerboxtitle {
+	border-width: 0px;
+	border-spacing: 0px;
+	margin: 0;
+	top: 0px;
+	height: 50px;
+	width: 100%;
+	font-size: 48px;
+	text-align: center;
+}
+
+/*For the agent name and text therearound*/
+.bannerboxagentname {
+	font-size: 36px;
+}
+
+/*a left floating box to hold information about the agent in the banner*/
+.bannerboxagentbox {
+	border-width: 0px;
+	border-spacing: 0px;
+	margin: 0;
+	margin-left: 5px;
+	top: 0px;
+	height: 200px;
+	width: 45%;
+	font-size: 14px;
+	text-align: left;
+	overflow: auto;
+	float:left;
+}
+
+/*a right floating banner to hold information about the book in the banner*/
+.bannerboxbookbox {
+	border-width: 0px;
+	border-spacing: 0px;
+	margin: 0;
+	margin-right: 5px;
+	top: 0px;
+	height: 200px;
+	width: 45%;
+	font-size: 14px;
+	text-align: right;
+	overflow: auto;
+	float:right;
+}
+
+/*book info is in a box that hangs right, but it itself must hang right within that box*/
+.bookinfobox {
+	margin-right: 0px;
+	margin-left: auto;
+	text-align:right;
+	float:right;
+}
+
+/*the table head must not overlap the borders of the banner*/
+.tablehead {
+	border-width: 0px;
+	margin: 0;
+	text-align: left;
+	position: fixed;
+	top: 280;
+	bottom: auto;
+	right: 0px;
+	left: 5px;
+	width: 100%-10px;
+}
+
+/*the input must be wide, to accomodate more search terms*/
+input.wide{
+	width:290px;
+}
+
+/*a box to put the search bar in*/
+.searchbarbox{
+	height:25px;
+}

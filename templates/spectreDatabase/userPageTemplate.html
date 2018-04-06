@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+<!--
+How this site works:
+
+The main body of this page is a table. It is a fancy table, with alternating transparent and dark red rows, over a vertical fixed black to dark red gradient. It will be occupied by clickable book entries. 
+
+The top 300px of the page are permanently occupied by a banner, with a 5px silver gradient. On the top is the title, and under that on the left is the user name, and search box. On the right will appear the information on whatever book was last clicked. Under those is the table header, which includes clickable arrows to sort the books.
+
+All books are retrieved by asyncronous xml requests in batches of 1000, which is all the server can do. When you click a book, that's another request to the server to get xml details. 
+
+
+-->
+<html>
+	<head>
+		
+		<!-- One needs one of them little icons at the top, and I got one. -->
+		<link rel="shortcut icon" href="/spectre/media/favicon.ico" >
+		<link rel="icon" type="image/gif" href="/spectre/media/animated_favicon1.gif" >
+		
+		<!-- a title -->
+		<title>SPECTRE Library Database</title>
+		
+		<!-- a style sheet -->
+		<link rel="stylesheet" href="/spectre/media/userPage.css" />
+		
+		<!-- This page uses a lot of javascript -->
+		<script type="text/javascript" src="/spectre/media/userPage.js"></script>
+		
+		<!-- since the server does not process the javascript, I have to set the userid variable here -->
+		<script type="text/javascript">
+			userid = {{userid}};
+		</script>
+		
+	</head>
+	<body>
+		
+		<!-- The fixed 300px tall 100% width banner at the top of the page, that stays there, fixed in your browser window. It has a 5px silver border, and a black backdrop -->
+		<div class="banner">
+		
+			<!--This is largely occupied by the bannerbox, a 260px tall div with a backdrop of the darkened spectre logo in the middle -->
+			<div class="bannerbox">
+				<!-- a centered, large title at the top -->
+				<div class="bannerboxtitle">
+					&nbsp We Are S.P.E.C.T.R.E. &nbsp
+				</div>
+				<!-- on the left, a box containing user information and search bar -->
+				<div class="bannerboxagentbox">
+					<div class="bannerboxagentname">
+						Agent: 
+						<br />
+						{{username}}
+					</div>
+					<div class="searchbarbox">
+						<!-- if you press return in the search box, it is just like clicking the search button -->
+						<input class="wide" type="search" id="txt1" onkeydown="if (event.keyCode == 13) document.getElementById('searchButton').click()" />
+						<script type="text/javascript">
+							document.getElementById('txt1').focus();
+						</script>
+					</div>
+					<div>
+						<!-- pressing the search button calls update_search_books, with the text of the search box for its input -->
+						<input type="button" class="btn" id="searchButton" name="submit" value="Search" onclick="javascript:update_search_books(document.getElementById('txt1').value);"/>
+						<!-- the my books out button just skips right ahead to calling get_books_from_server with the search xml and appropriate input -->
+						<input type="button" class="btn" id="getMyBooksButton" name="submit" value="My Books Out" onclick="javascript:get_books_from_server('/spectre/book/search/xml/','userid={{userid}}');"/>
+						<!-- the done button just redirects to the login page -->
+						<input type="submit" class="btn" id="doneButton" name="submit" value="Done" onClick="parent.location='/spectre/login/'" />
+					</div>
+					<!-- it's nice to know how much you've loadaed and how much you've yet to load -->
+					<div>
+						<span>Loading: </span>
+						<span id="numberofentries">0</span>
+						<span> of <span id="numberofbookstoload">0</span>.</span>
+						<span> (out of {{books}} total books) </span>
+					</div>
+				</div>
+				<!-- the book information will go in here, on the right, when you click on a book. -->
+				<div class="bannerboxbookbox" id="bookbox">
+					
+				</div>
+			</div>
+			<!-- at the bottom of the banner is a table head, which has all the names of the columns, and their widths, as well as clickable arrows that sort the books by the collumn entries and their inverses -->
+			<div class="tablehead">
+				<table class="fancy" width="100%" id="booktablehead">
+					<tr class="header">
+						<th width="12%">Spectre ID <span class="clickable" onclick="javascript:sortBooks(sortBooksBySpectreID)">&darr;</span> <span class="clickable" onclick="javascript:sortBooks(invert(sortBooksBySpectreID))">&uarr;</span></th>
+						<th width="10%">ID Code <span class="clickable" onclick="javascript:sortBooks(sortBooksByIDCode)">&darr;</span> <span class="clickable" onclick="javascript:sortBooks(invert(sortBooksByIDCode))">&uarr;</span></th>
+						<th width="10%">ISBN <span class="clickable" onclick="javascript:sortBooks(sortBooksByISBN)">&darr;</span> <span class="clickable" onclick="sortBooks(invert(sortBooksByISBN))">&uarr;</span></th>
+						<th width="25%">Author <span class="clickable" onclick="javascript:sortBooks(sortBooksByAuthor)">&darr;</span> <span class="clickable" onclick="javascript:sortBooks(invert(sortBooksByAuthor))">&uarr;</span></th>
+						<th width="35%">Title <span class="clickable" onclick="javascript:sortBooks(sortBooksByTitle)">&darr;</span> <span class="clickable" onclick="javascript:sortBooks(invert(sortBooksByTitle))">&uarr;</span></th>
+						<th width="7%">Out? <span class="clickable" onclick="javascript:sortBooks(sortBooksByOut)">&darr;</span> <span class="clickable" onclick="javascript:sortBooks(invert(sortBooksByOut))">&uarr;</span></th>
+						
+						<!-- to keep Out from overlapping with the border, we have this column in here for a spacer -->
+						<th width="1%"></th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- on the main page, outside of the banner, we need a spacer to keep the top few search results from being under the banner -->
+		<div class="spacer"></div>
+		
+		<!-- the table that will contain book search results -->
+		<table class="fancy" width="100%" id="booktable">
+			
+		</table>
+	</body>
+</html>

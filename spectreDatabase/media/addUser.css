@@ -1,0 +1,94 @@
+/*boddy with a black to red vertical fixed gradient */
+body {
+	background-image: url(/spectre/media/spectreGradient.jpg);/*thanks http://rlv.zcache.com/sp_e_c_t_u_r_e_white_octipus_button-p145089362579505254t5sj_400.jpg ! */
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+}
+
+/*a central, 500px wide div to contain stuff, 150px from the top*/
+.spectrelogindiv {
+	margin-top: 150px;
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+/*the logo is actually a div, with a background, so you can't drag it away like an image*/
+.spectrelogodiv {
+	margin-top: 150px;
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 247px;
+    height: 247px;
+    background-image: url(/spectre/media/spectreLogo.png);
+    background-repeat:no-repeat;
+    background-position:top center;
+}
+
+/*formatting for the title*/
+.spectretitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 48px;
+}
+
+/*formatting for the subtitle*/
+.spectresubtitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 30px;
+}
+
+/*formatting for the subsubtitle, which is actually just the main text or form or whatever of the page*/
+.spectresubsubtitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 14px;
+}
+
+/*formatting for the form actually used to add users, with, most notably, 18pt left hugging font*/
+.adduserform {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: left;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 18px;
+}
+
+/*buttons should look cool*/
+.btn { 
+	color: #b5b5b5; 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5; 
+} 
+
+/*button text should turn red when your mouse goes over them*/
+.btn:hover { 
+	color: rgb(150, 0, 0); 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5;
+}

@@ -1,0 +1,163 @@
+body {
+	background-image: url(/spectre/media/spectreGradient.jpg);/*thanks http://rlv.zcache.com/sp_e_c_t_u_r_e_white_octipus_button-p145089362579505254t5sj_400.jpg ! */
+	background-repeat: repeat-x;
+	text-align: center;
+	background-attachment: fixed;
+}
+
+/* meant to be used in a div with the spectre logo in it, encircled. used instead of a picture because you can't drag a background, which decreases the effect. */
+.spectrelogodiv {
+	margin-top: 10px;
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 250px;
+    background-image: url(/spectre/media/spectreLogoEncircled.png);
+    background-repeat:no-repeat;
+    background-position:top center;
+}
+
+/*Titles need big, nice font, centered. */
+.spectretitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 48px;
+}
+
+/* floats fifty pixels from the left, text centered within it.*/
+.left {
+	border: 0px;
+    margin-left: 50px;
+    margin-right: auto;
+    margin-top: 0px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 30px;
+    float:left;
+}
+
+/* floats fifty pixels from the right, text centered within */
+.right {
+	border: 0px;
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 0px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 30px;
+    float:right;
+}
+
+/*The sub title, which needs pretty big centered font.*/
+.spectresubtitle {
+	border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: center;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 30px;
+}
+
+/*In the article itself, we have several section titles. This is a class for them.*/
+.spectresection {
+	border: 0px;
+    margin-left: 10px;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: left;
+    color: #b5b5b5;
+    font-weight: bold;
+    font-family: Arial, Verdana, Times;
+    font-size: 24px;
+}
+
+/*A div class for the text within each little section in the main article*/
+.spectretext {
+	border: 0px;
+    margin-left: 25px;
+    margin-right: auto;
+    margin-top: 5px;
+    text-align: left;
+    color: #b5b5b5;
+    font-family: Arial, Verdana, Times;
+    font-size: 14px;
+}
+
+/*Buttons should look cool*/
+.btn { 
+	color: #b5b5b5; 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5;
+}
+
+/*when you hover over a button, the text should be dark red*/
+.btn:hover { 
+	color: rgb(150, 0, 0); 
+	font: bold 84% Arial, Verdana, Times; 
+	background-color:black; 
+	border:1px solid; 
+	border-color: #b5b5b5 #b5b5b5 #b5b5b5 #b5b5b5;
+}
+
+/*The main body of the page is inclosed in a box, this one.*/
+.banner {
+	border-width: 5px;
+	border-spacing: 0px;
+	border-style: outset;
+	border-color: #b5b5b5 ;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	top: 10px;
+	width: 800px;
+	left: auto;
+	right: auto;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: black;
+}
+
+/*one needs a spacer, somewhere or other*/
+.spacer {
+	height: 70px;
+}
+
+/*The horizontal line seperating the title from the main article*/
+hr.seperator {
+	border:0;
+	width:700px;
+	height:5px;
+	color:#b5b5b5 ;
+	background-color:#b5b5b5 ;
+}
+
+/*links should be white and underlined, but when you hover over them, they should be red, and then no underline when you click*/
+a:link {
+	text-decoration: underline;
+	color: white;
+}
+a:visited {
+	text-decoration: underline;
+	color: white;
+}
+a:active {
+	text-decoration: none;
+	color: red;
+}
+a:hover {
+	text-decoration: underline;
+	color: red;
+}
